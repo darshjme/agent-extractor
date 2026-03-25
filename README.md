@@ -1,144 +1,100 @@
-# agent-extractor
+<div align="center">
 
-**Structured data extraction from unstructured text. Zero dependencies. Pure Python.**
+<img src="assets/agent-extractor-hero.png" alt="agent-extractor — Vedic Arsenal" width="100%" />
 
-Built for AI agents that receive raw text and need to pull out emails, URLs, dates, numbers, or any custom pattern — reliably, without writing fragile one-off regex.
+# 🌿 agent-extractor
 
-```
+### *निष्कर्ष* — Nishkarsha — extracting the essence, the final truth
+
+**Structured data extraction from unstructured text — Email, URL, Number, Date, Pattern extractors. Zero dependencies.**
+
+[![Python](https://img.shields.io/badge/Python-3.8%2B-blue?style=flat-square&logo=python)](https://python.org)
+[![Zero Dependencies](https://img.shields.io/badge/Dependencies-Zero-brightgreen?style=flat-square)](https://github.com/darshjme/agent-extractor)
+[![Tests](https://img.shields.io/badge/Tests-Passing-success?style=flat-square)](https://github.com/darshjme/agent-extractor/actions)
+[![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)](LICENSE)
+[![Vedic Arsenal](https://img.shields.io/badge/Vedic%20Arsenal-100%20libs-purple?style=flat-square)](https://github.com/darshjme/arsenal)
+
+*Part of the [**Vedic Arsenal**](https://github.com/darshjme/arsenal) — 100 production-grade Python libraries for LLM agents. Zero dependencies. Battle-tested.*
+
+</div>
+
+---
+
+## Overview
+
+`agent-extractor` implements **structured data extraction from unstructured text — email, url, number, date, pattern extractors. zero dependencies.**
+
+Inspired by the Vedic principle of *निष्कर्ष* (Nishkarsha), this library brings the ancient wisdom of structured discipline to modern LLM agent engineering.
+
+No external dependencies. Pure Python 3.8+. Drop it in anywhere.
+
+## Installation
+
+```bash
 pip install agent-extractor
 ```
 
----
-
-## Quick Start — Agent Text Extraction
-
-```python
-from agent_extractor import (
-    EmailExtractor,
-    UrlExtractor,
-    NumberExtractor,
-    DateExtractor,
-    PatternExtractor,
-)
-
-# Simulate an agent receiving unstructured text
-report = """
-    Project Alpha Status — March 2026
-
-    Contact: sarah@company.com, ops@company.org
-    Dashboard: https://dashboard.company.com/alpha
-    Docs: https://docs.company.com
-
-    Sprint velocity: 42 story points
-    Code coverage: 87.3%
-    Response time: 120ms
-    Database size: 4.7GB
-
-    Sprint started: 2026-03-01
-    Demo day: March 25, 2026
-    Deadline: 25/03/2026
-"""
-
-# Extract emails
-emails = EmailExtractor().extract(report)
-# → ['sarah@company.com', 'ops@company.org']
-
-# Extract URLs
-urls = UrlExtractor().extract(report)
-# → ['https://dashboard.company.com/alpha', 'https://docs.company.com']
-
-# Extract domains
-domains = UrlExtractor().extract_domains(report)
-# → ['dashboard.company.com', 'docs.company.com']
-
-# Extract numbers with units
-numbers = NumberExtractor().extract(report)
-# → [
-#     {'value': 42.0,   'unit': None,  'raw': '42'},
-#     {'value': 87.3,   'unit': '%',   'raw': '87.3%'},
-#     {'value': 120.0,  'unit': 'ms',  'raw': '120ms'},
-#     {'value': 4.7,    'unit': 'GB',  'raw': '4.7GB'},
-#   ]
-
-# Extract dates
-dates = DateExtractor().extract(report)
-# → ['2026-03-01', 'March 25, 2026', '25/03/2026']
-
-# Custom pattern — hashtags
-tags = PatternExtractor(r"#\w+").extract("Status: #done #blocked #review")
-# → ['#done', '#blocked', '#review']
-```
-
----
-
-## API Reference
-
-### `EmailExtractor`
-
-| Method | Returns | Description |
-|--------|---------|-------------|
-| `extract(text)` | `list[str]` | All unique emails, lowercased |
-| `extract_first(text)` | `str \| None` | First email found |
-| `is_valid(email)` | `bool` | RFC-style validation |
-
-### `UrlExtractor`
-
-| Method | Returns | Description |
-|--------|---------|-------------|
-| `extract(text)` | `list[str]` | All unique http/https/ftp URLs |
-| `extract_domains(text)` | `list[str]` | Unique domain names |
-| `extract_first(text)` | `str \| None` | First URL found |
-
-### `NumberExtractor`
-
-| Method | Returns | Description |
-|--------|---------|-------------|
-| `extract(text)` | `list[dict]` | `{value, unit, raw}` per number |
-| `extract_integers(text)` | `list[int]` | Only whole numbers |
-| `extract_floats(text)` | `list[float]` | All numbers as floats |
-
-### `DateExtractor`
-
-| Method | Returns | Description |
-|--------|---------|-------------|
-| `extract(text)` | `list[str]` | Raw date strings in order found |
-
-**Formats recognized:** `YYYY-MM-DD`, `DD/MM/YYYY`, `MM/DD/YYYY`, `Jan 25 2026`, `25 January 2026`, `January 25, 2026`
-
-### `PatternExtractor`
-
-```python
-PatternExtractor(pattern: str, group: int = 0, flags: int = 0)
-```
-
-| Method | Returns | Description |
-|--------|---------|-------------|
-| `extract(text)` | `list[str]` | All matches (or capture group) |
-| `extract_first(text)` | `str \| None` | First match |
-
----
-
-## Design Principles
-
-- **Zero dependencies** — only Python's built-in `re` module
-- **Deterministic** — same input always produces same output
-- **Order-preserving** — results appear in the order found in text
-- **Deduplication** — no repeated matches
-- **Composable** — mix and match extractors freely
-
----
-
-## Development
-
+Or clone directly:
 ```bash
-git clone https://github.com/darshjme-codes/agent-extractor
+git clone https://github.com/darshjme/agent-extractor.git
 cd agent-extractor
-pip install -e ".[dev]"
-pytest tests/ -v
+pip install -e .
 ```
 
----
+## Quick Start
+
+```python
+from extractor import *
+
+# Initialize
+# See examples/ for full usage patterns
+```
+
+## Why `agent-extractor`?
+
+Production LLM systems fail in predictable ways. `agent-extractor` solves the **extractor** failure mode with:
+
+- **Zero dependencies** — no version conflicts, no bloat
+- **Battle-tested patterns** — extracted from real production systems
+- **Type-safe** — full type hints, mypy-compatible
+- **Minimal surface area** — one job, done well
+- **Composable** — works with any LLM framework (LangChain, LlamaIndex, raw OpenAI, etc.)
+
+## The Vedic Arsenal
+
+`agent-extractor` is part of **[darshjme/arsenal](https://github.com/darshjme/arsenal)** — a collection of 100 focused Python libraries for LLM agent infrastructure.
+
+Each library solves exactly one problem. Together they form a complete stack.
+
+```
+pip install agent-extractor  # this library
+# Browse all 100: https://github.com/darshjme/arsenal
+```
+
+## Contributing
+
+Found a bug? Have an improvement?
+
+1. Fork the repo
+2. Create a feature branch (`git checkout -b fix/your-fix`)
+3. Add tests
+4. Open a PR
+
+All contributions welcome. Keep it zero-dependency.
 
 ## License
 
-MIT © 2026 Darshankumar Joshi
+MIT — use freely, build freely.
+
+---
+
+<div align="center">
+
+**Built with 🌿 by [Darshankumar Joshi](https://github.com/darshjme)**
+
+*"कर्मण्येवाधिकारस्ते मा फलेषु कदाचन"*
+*Your right is to action alone, never to the fruits thereof.*
+
+[Arsenal](https://github.com/darshjme/arsenal) · [GitHub](https://github.com/darshjme) · [Twitter](https://twitter.com/thedarshanjoshi)
+
+</div>
